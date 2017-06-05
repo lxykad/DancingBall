@@ -8,10 +8,17 @@
         tools:context="com.lxy.ball.MainActivity">
 
         <com.lxy.ball.widget.DancingBall
+            android:id="@+id/db"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:background="#fff" />
+
+        <Button
+            android:text="bitmap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="goToBitmap" />
 
     </RelativeLayout>
 

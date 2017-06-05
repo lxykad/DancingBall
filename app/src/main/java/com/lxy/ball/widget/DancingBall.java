@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -73,6 +74,9 @@ public class DancingBall extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap mBitmap;
     private Rect mRect;
 
+    private int IMG_WIDTH = 100;
+    private int IMG_HEIGHT = 100;
+
     public DancingBall(Context context) {
         this(context, null);
     }
@@ -104,7 +108,7 @@ public class DancingBall extends SurfaceView implements SurfaceHolder.Callback {
 
     private void initBitmap(Context context) {
 
-        mBitmap = ((BitmapDrawable) context.getResources().getDrawable(R.drawable.long2)).getBitmap();
+        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.long2);
     }
 
     private void initAttrs(Context context, AttributeSet attrs) {
@@ -299,6 +303,12 @@ public class DancingBall extends SurfaceView implements SurfaceHolder.Callback {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        /*mPaint.setColor(mPonitColor);
+        mPaint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(getWidth() / 2 - mLineWidth / 2, getHeight() / 2, PONIT_RADIUS, mPaint);
+        canvas.drawCircle(getWidth() / 2 + mLineWidth / 2, getHeight() / 2, PONIT_RADIUS, mPaint);*/
+
+        canvas.save();
         //左右两条贝塞尔曲线构成该条绳子
         mPaint.setColor(mLineColor);
         mPath.reset();
@@ -322,10 +332,15 @@ public class DancingBall extends SurfaceView implements SurfaceHolder.Callback {
             //绘制小球
             mPaint.setStyle(Paint.Style.FILL);
             mPaint.setColor(mBallColor);
-            canvas.drawCircle(getWidth() / 2, getHeight() / 2 + mDownDistance - BALL_RADIUS, BALL_RADIUS, mPaint);
+            //canvas.drawCircle(getWidth() / 2, getHeight() / 2 + mDownDistance - BALL_RADIUS, BALL_RADIUS, mPaint);
 
-            // mRect = new Rect(getWidth() / 2, (int) (getHeight() / 2 + mDownDistance), 100, 100);
-            //canvas.drawBitmap(mBitmap, null, mRect, mPaint);
+
+            //绘制图片
+            int x = getWidth() / 2 - IMG_WIDTH / 2;
+            int y = (int) (getHeight() / 2 + mDownDistance) - IMG_HEIGHT - DEFAULT_LINE_HEIGHT;
+            canvas.translate(x, y);
+            mRect = new Rect(0, 0, IMG_WIDTH, IMG_HEIGHT);
+            canvas.drawBitmap(mBitmap, null, mRect, mPaint);
 
 
         } else if (mAnimatorState == STATE_UP) {//上弹
@@ -349,24 +364,35 @@ public class DancingBall extends SurfaceView implements SurfaceHolder.Callback {
 
             //弹性小球,自由落体
             if (!isBounced) {
-                //上升
-                canvas.drawCircle(getWidth() / 2, getHeight() / 2 + (MAX_OFFSET_Y - mUpDistance) - BALL_RADIUS, BALL_RADIUS, mPaint);
+                //上升--小球
+                //canvas.drawCircle(getWidth() / 2, getHeight() / 2 + (MAX_OFFSET_Y - mUpDistance) - BALL_RADIUS, BALL_RADIUS, mPaint);
 
-//                mRect = new Rect(getWidth() / 2, (int) (getHeight() / 2 + mDownDistance - BALL_RADIUS), 100, 100);
-//                canvas.drawBitmap(mBitmap, null, mRect, mPaint);
+                //绘制图片
+                int x = getWidth() / 2 - IMG_WIDTH / 2;
+                int y = (int) (getHeight() / 2 + MAX_OFFSET_Y - mUpDistance) - IMG_HEIGHT - DEFAULT_LINE_HEIGHT;
+                canvas.translate(x, y);
+                mRect = new Rect(0, 0, IMG_WIDTH, IMG_HEIGHT);
+
+                canvas.drawBitmap(mBitmap, null, mRect, mPaint);
+
+
             } else {
-                //自由落体
-                canvas.drawCircle(getWidth() / 2, getHeight() / 2 - freeBallDistance - BALL_RADIUS, BALL_RADIUS, mPaint);
+                //自由落体--小球
+                //canvas.drawCircle(getWidth() / 2, getHeight() / 2 - freeBallDistance - BALL_RADIUS, BALL_RADIUS, mPaint);
 
-//                mRect = new Rect(50, 50, 100, 100);
-//                canvas.drawBitmap(mBitmap, null, mRect, mPaint);
+                //绘制图片
+                int x = getWidth() / 2 - IMG_WIDTH / 2;
+                int y = (int) (getHeight() / 2 - freeBallDistance) - IMG_HEIGHT - DEFAULT_LINE_HEIGHT;
+                canvas.translate(x, y);
+                mRect = new Rect(0, 0, IMG_WIDTH, IMG_HEIGHT);
 
-                // canvas.drawBitmap(mBitmap,getWidth() / 2, getHeight() / 2 - freeBallDistance - BALL_RADIUS,mPaint);
+                canvas.drawBitmap(mBitmap, null, mRect, mPaint);
 
             }
 
         }
 
+        canvas.restore();
         mPaint.setColor(mPonitColor);
         mPaint.setStyle(Paint.Style.FILL);
         canvas.drawCircle(getWidth() / 2 - mLineWidth / 2, getHeight() / 2, PONIT_RADIUS, mPaint);
@@ -393,6 +419,10 @@ public class DancingBall extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+
+    }
+
+    public void drawLong() {
 
     }
 }
