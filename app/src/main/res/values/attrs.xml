@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DancingBall">
+        <attr name="ball_color" format="reference|color" />
+        <attr name="lineWidth" format="dimension" />
+        <attr name="lineHeight" format="dimension" />
+        <attr name="pointColor" format="reference|color" />
+        <attr name="lineColor" format="reference|color" />
+    </declare-styleable>
+
+</resources>
