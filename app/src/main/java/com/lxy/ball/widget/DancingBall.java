@@ -33,7 +33,7 @@ public class DancingBall extends SurfaceView implements SurfaceHolder.Callback {
 
     public static final int DEFAULT_POINT_RADIUS = 10;
     public static final int DEFAULT_BALL_RADIUS = 13;
-    public static final int DEFAULT_LINE_WIDTH = 300;
+    public static final int DEFAULT_LINE_WIDTH = 500;
     public static final int DEFAULT_LINE_HEIGHT = 20;
     public static final int DEFAULT_LINE_COLOR = Color.parseColor("#FF9800");
     public static final int DEFAULT_POINT_COLOR = Color.parseColor("#9C27B0");
@@ -43,7 +43,7 @@ public class DancingBall extends SurfaceView implements SurfaceHolder.Callback {
     public static final int DEFAULT_UP_DURATION = 600;//ms
     public static final int DEFAULT_FREEDOWN_DURATION = 1000;//ms
 
-    public static final int MAX_OFFSET_Y = 50;//水平下降最大偏移距离
+    public static final int MAX_OFFSET_Y = 80;//水平下降最大偏移距离
 
     public int PONIT_RADIUS = DEFAULT_POINT_RADIUS;//圆固定点半径
     public int BALL_RADIUS = DEFAULT_BALL_RADIUS;//小球半径
@@ -74,8 +74,8 @@ public class DancingBall extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap mBitmap;
     private Rect mRect;
 
-    private int IMG_WIDTH = 100;
-    private int IMG_HEIGHT = 100;
+    private int IMG_WIDTH = 150;
+    private int IMG_HEIGHT = 150;
 
     public DancingBall(Context context) {
         this(context, null);
@@ -346,12 +346,12 @@ public class DancingBall extends SurfaceView implements SurfaceHolder.Callback {
         } else if (mAnimatorState == STATE_UP) {//上弹
             /**************绘制绳子开始*************/
             //左边的绳子
-            mPath.quadTo((float) (getWidth() / 2 - mLineWidth / 2 + mLineWidth * 0.375), getHeight() / 2 + 50 - mUpDistance,
+            mPath.quadTo((float) (getWidth() / 2 - mLineWidth / 2 + mLineWidth * 0.375), getHeight() / 2 + MAX_OFFSET_Y - mUpDistance,
                     getWidth() / 2,
-                    getHeight() / 2 + (50 - mUpDistance));
+                    getHeight() / 2 + (MAX_OFFSET_Y - mUpDistance));
 
             //右边的绳子
-            mPath.quadTo((float) (getWidth() / 2 + mLineWidth / 2 - mLineWidth * 0.375), getHeight() / 2 + 50 - mUpDistance,
+            mPath.quadTo((float) (getWidth() / 2 + mLineWidth / 2 - mLineWidth * 0.375), getHeight() / 2 + MAX_OFFSET_Y - mUpDistance,
                     getWidth() / 2 + mLineWidth / 2,
                     getHeight() / 2);
 

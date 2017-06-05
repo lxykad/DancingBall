@@ -15,10 +15,11 @@
             android:background="#fff" />
 
         <Button
-            android:text="bitmap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="goToBitmap" />
+            android:onClick="goToBitmap"
+            android:text="bitmap"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
